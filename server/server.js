@@ -1,12 +1,13 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+const lObjectId = require('mongodb').ObjectID;
 
 var {mongoose} = require('./db/mongoose');
 var {Todo} = require('./models/todo');
 var {User} = require('./models/user');
-const lObjectId = require('mongodb').ObjectID;
 
 var app = express();
+const port = process.env.PORT || 3000
 
 app.use(bodyParser.json());
 
@@ -60,9 +61,26 @@ app.get('/todos/:id', (req, res) => {
     //res.send(msg);
 });
 
+app.delete('/todos/:id', (req, res) => {
+    var id = req.params.id;
 
-app.listen(3000, () => {
-    console.log('Server started on port 3000');
+    if (!lObjectId.isValid(id)) {
+        return res.status(404).send();
+    }
+
+    Todo.findByIdAndRemove(id).then((todo) => {
+        if (!todo) {
+            return res.status(404).send();
+        }
+
+        return res.status(200).send(todo);
+    }).catch((e) => {
+        return res.status(400).send();
+    })
+});
+
+app.listen(port, () => {
+    console.log(`Server started on port ${port}`);
 });
 
 module.exports = {app};
