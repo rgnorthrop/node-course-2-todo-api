@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var {mongoose} = require('./db/mongoose');
 var {Todo} = require('./models/todo');
 var {User} = require('./models/user');
+const lObjectId = require('mongodb').ObjectID;
 
 var app = express();
 
@@ -31,6 +32,34 @@ app.get('/todos', (req, res) => {
             res.status(400).send(err);
         });
 });
+
+app.get('/todos/:id', (req, res) => {
+    var id = req.params.id;
+    var msg = '';
+
+    // var id = '5a5faca942ba4d86271d4e2c';
+
+    if (!lObjectId.isValid(id)) {
+        msg = 'Id not valid.';
+        return res.status(404).send();
+    }
+
+    Todo.findById(id).then((todo) => {
+        if (!todo) {
+            return res.status(404).send();
+        }
+        else {
+            return res.send({
+                todo
+            });
+        }
+    }).catch((e) => {
+        res.status(400).send();
+    })
+
+    //res.send(msg);
+});
+
 
 app.listen(3000, () => {
     console.log('Server started on port 3000');
