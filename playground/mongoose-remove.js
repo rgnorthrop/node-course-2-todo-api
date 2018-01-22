@@ -3,7 +3,7 @@ const lObjectId = require('mongodb').ObjectID;
 const {mongoose} = require('./../server/db/mongoose');
 const {Todo} = require('./../server/models/todo');
 //const User = require('./../server/models/user').User;     // This works - traditional method
-const {User} = require('./../server/models/user');          // This works - ES6 destructuring method
+const {User} = require('../server/models/xuser');          // This works - ES6 destructuring method
 
 // Todo.remove({}).then((result)=>{
 //    console.log(result);

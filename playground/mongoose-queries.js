@@ -3,12 +3,12 @@ const lObjectId = require('mongodb').ObjectID;
 const {mongoose} = require('./../server/db/mongoose');
 const {Todo} = require('./../server/models/todo');
 //const User = require('./../server/models/user').User;     // This works - traditional method
-const {User} = require('./../server/models/user');          // This works - ES6 destructuring method
+const {User} = require('../server/models/xuser');          // This works - ES6 destructuring method
 
 var id = '5a5faca942ba4d86271d4e2c';
-var userId = '5a5f6f6bace667ec210e1eb1';
+var userId = '5a661600301804e30b9fd0f2';
 
-if (!lObjectId.isValid(id)){
+if (!lObjectId.isValid(id)) {
     console.log('Id not valid.');
 }
 
@@ -37,11 +37,16 @@ if (!lObjectId.isValid(id)){
 // });
 
 User.findById(userId).then((user) => {
-    if(!user){
+    if (!user) {
         return console.log('Id not found');
     }
     console.log('UserById: ', user);
-}).catch((e)=>{
-    console.log('Error calling User.findById:\n',e);
+}).catch((e) => {
+    console.log('Error calling User.findById:\n', e);
 });
 
+// User.findOne({
+//     _id: '5a661600301804e30b9fd0f2'
+// }).then((userX) => {
+//     console.log('UserX: ', UserX);
+// })
