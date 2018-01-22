@@ -114,73 +114,12 @@ app.post('/users', (req, res) => {
     })
 });
 
-// app.get('/users/me', authenticate, (req, res) => {
-//     res.send(req.user);
-// });
-
 app.get('/users/me', authenticate, (req, res) => {
     res.send(req.user);
 });
-
-// Below code works
-// app.get('/users/me', (req, res) => {
-//     var token = req.header('x-auth');
-//     console.log('HERE1000');
-//     User.findByToken(token).then((user) => {
-//         if (!user) {
-//             console.log('User NOT found.');
-//             return Promise.reject();
-//         }
-//         console.log('User: ', user);
-//
-//         //req.user = user;
-//         // req.token = token;
-//         // next();
-//         res.send(user);
-//     }).catch((e) => {
-//         res.status(401).send(e);
-//     })
-//
-//     //res.send(req.user);
-// });
 
 app.listen(port, () => {
     console.log(`Started up at port ${port}`);
 });
 
 module.exports = {app};
-
-
-// {
-//     "name": "todo-api",
-//     "version": "1.0.0",
-//     "description": "",
-//     "main": "index.js",
-//     "scripts": {
-//     "start": "node server/server.js",
-//         "test": "export NODE_ENV=test && mocha **/*.test.js",
-//         "test-watch": "nodemon --exec 'npm test'"
-// },
-//     "engines": {
-//     "node": "9.4.0"
-// },
-//     "author": "",
-//     "license": "ISC",
-//     "dependencies": {
-//     "body-parser": "^1.15.2",
-//         "crypto-js": "^3.1.6",
-//         "express": "^4.14.0",
-//         "jsonwebtoken": "^7.1.9",
-//         "lodash": "^4.15.0",
-//         "mongodb": "^2.2.34",
-//         "mongoose": "^4.5.9",
-//         "validator": "^9.2.0"
-// },
-//     "devDependencies": {
-//     "expect": "^1.20.2",
-//         "mocha": "^3.0.2",
-//         "nodemon": "^1.10.2",
-//         "supertest": "^2.0.0",
-//         "tap": "^11.0.1"
-// }
-// }
